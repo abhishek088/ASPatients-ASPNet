@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Roles on File";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="CreateRole">
+    <input type="text" name="roleName" />
+    <input type="submit" value="Create Role" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>Role Name</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="ListUsers" asp-route-rolename="@item.Name" asp-route-id="@item.Id">Users In Role </a><text> | </text>
+                @if (User.IsInRole("administrators") && item.Name != "administrators")
+                {
+                    <a asp-action="DeleteRoleAction" asp-route-roleName="@item.Name"> Delete Role</a>
+                }
+
+
+
+            </td>
+        </tr>
+    }
+</table>
+

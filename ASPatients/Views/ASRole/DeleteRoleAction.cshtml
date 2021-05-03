@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+@{
+    ViewData["Title"] = $"Confirm Delete of Role: '{ViewBag.roleName}'";
+}
+
+
+
+<h1>@ViewData["Title"]</h1>
+
+
+<form asp-action="ConfirmDeleteAction" asp-route-roleName="@ViewBag.roleName">
+
+    <h2>Users in Role</h2>
+
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                @item.UserName
+            </li>
+        }
+    </ul>
+
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Confirm Delete" />
+            </td>
+            <td>
+                <input type="button" value="Cancel Delete" onclick="location.href='@Url.Action("Index", "ASRole")';" />
+            </td>
+        </tr>
+    </table>
+
+</form>
+<a asp-action="Index" asp-controller="ASRole">Back to Role list</a>
